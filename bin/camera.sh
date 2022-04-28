@@ -16,18 +16,17 @@ mkdir -p $DIRECTORY
 
 cd $DIRECTORY
 
-/mnt/raid/Code/Media-Center-2.0/On-Demand-Transcoder/ffmpeg \
+ffmpeg \
     -y \
     -loglevel error \
-    -i rtsp://$1:8554/unicast \
-    -timeout 10 \
-    -stimeout 10000000 \
+    -timeout 10000000 \
+    -i rtsp://$1.lan:8554/unicast \
     -c:v copy \
     -f hls \
     -hls_time 2 \
     -hls_list_size 3 \
     -hls_flags delete_segments \
-    -use_localtime 1 \
+    -strftime 1 \
     -hls_segment_filename "out-%Y%m%d-%s.ts" \
     out.m3u8
 
