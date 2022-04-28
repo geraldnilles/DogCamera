@@ -2,9 +2,7 @@
 
 const express = require('express');
 const app = express();
-const fs = require("fs");
 
-const socketPath = "/tmp/scam2.socket";
 
 app.set("view engine","pug");
 app.set("views","./views");
@@ -23,25 +21,11 @@ app.use(express.static('public'))
 
 // TODO Add 404
 
-function chmodSocket() {
-    fs.chmod(socketPath,"777",function(err){
-    });
-}
-
 function startServer(){
-    app.listen(socketPath, function () {
+    app.listen(8080, function () {
         console.log('DogCamera is running and listening on port 8080');
-        chmodSocket();
     });
 }
 
-fs.access(socketPath,fs.constants.F_OK,function(err){
-    if(!err){
-        fs.unlink(socketPath,function(err){
-            startServer();
-        });
-    }else {
-        startServer();
-    }
-});
+startServer();
 
