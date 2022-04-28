@@ -1,5 +1,7 @@
 [Unit]
 Description=HLS Encoder for the Living Room
+After=systemd-networkd.service
+
 
 [Service]
 Type=simple

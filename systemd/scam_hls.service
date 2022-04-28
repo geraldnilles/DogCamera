@@ -1,5 +1,7 @@
 [Unit]
 Description=HLS Encoder for Kitchen
+After=systemd-networkd.service
+
 
 [Service]
 Type=simple
