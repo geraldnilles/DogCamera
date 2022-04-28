@@ -1,0 +1,12 @@
+[Unit]
+Description=HLS Encoder for Kitchen
+
+[Service]
+Type=simple
+ExecStart=/opt/DogCamera/bin/camera.sh Kitchen
+Restart=always
+
+[Install]
+WantedBy=default.target
+
+

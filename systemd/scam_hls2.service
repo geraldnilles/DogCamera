@@ -1,0 +1,12 @@
+[Unit]
+Description=HLS Encoder for the Living Room
+
+[Service]
+Type=simple
+ExecStart=/opt/DogCamera/bin/camera.sh LivingRoom
+Restart=always
+
+[Install]
+WantedBy=default.target
+
+

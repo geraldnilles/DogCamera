@@ -1,0 +1,13 @@
+[Unit]
+Description=WebUI for DogCamera
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/DogCamera
+ExecStart=/opt/DogCamera/app.js
+Restart=always
+
+[Install]
+WantedBy=default.target
+
+
