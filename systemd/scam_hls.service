@@ -3,10 +3,10 @@ Description=HLS Encoder for Kitchen
 
 [Service]
 Type=simple
-ExecStart=/opt/DogCamera/bin/camera.sh Kitchen
+ExecStart=/opt/DogCamera/bin/camera.sh KitchenCam
 Restart=always
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 
 
