@@ -17,8 +17,6 @@ app.get('/', function (req, res) {
 
 app.use("/motion",require("./routes/motion"));
 
-app.use("/dvr",require("./routes/dvr"));
-
 app.use(express.static('public'))
 
 // app.use("/bigbutts/still",require("./routes/still"));
