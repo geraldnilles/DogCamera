@@ -17,18 +17,32 @@ deltatime=$(( $nowtime - $modtime ))
 
 echo "Last Modified $deltatime seconds ago"
 
-if [ "$size" -lt 10000 ]
+if [ "$size" -gt 10000 ]
 then
-    if [ "$deltatime" -lt 60 ]
-    then
-        return
-    fi
+    return 1
 fi
 
-echo "Restart HLS Services"
+
+if [ "$deltatime" -gt 60 ]
+then
+    return 2
+fi
+
+return 0
 
 }
 
-run LivingRoomCam
-run KitchenCam
+function reset() {
+
+	echo "Reset!"
+	systemctl restart scam_hls.service
+	systemctl restart scam_hls2.service
+
+}
+
+while true
+do
+	sleep 300
+	run KitchenCam && run LivingRoomCam || reset
+done
 
