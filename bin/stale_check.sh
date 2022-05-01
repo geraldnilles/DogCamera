@@ -17,9 +17,18 @@ deltatime=$(( $nowtime - $modtime ))
 
 echo "Last Modified $deltatime seconds ago"
 
+if [ "$size" -lt 10000 ]
+then
+    if [ "$deltatime" -lt 60 ]
+    then
+        return
+    fi
+fi
+
+echo "Restart HLS Services"
 
 }
 
-run LivingRoom
-run Kitchen
+run LivingRoomCam
+run KitchenCam
 

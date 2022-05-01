@@ -21,4 +21,8 @@ https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks
 
 The default login for admin access is root/ismart12
 
+Todos
+=====
 
+[ ] Write a watchdog that restarts the HLS process if the /tmp size is too big
+    or the data is too stale 
