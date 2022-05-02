@@ -7,40 +7,32 @@
 # TODO Dynamically detect how many HLS services are running
 #   systemctl --full --all --plain --no-legend list-units scam_hls*
 
-function run() {
-
-
-size=$( du /tmp/$1/ | gawk '{ print $1 }' )
-
-modtime=$( stat -c %Y /tmp/$1 )
-nowtime=$( date +%s )
-deltatime=$(( $nowtime - $modtime ))
-
-
-if [ "$size" -gt 10000 ]
-then
-    echo "$1 folder is too big: $size"
-	systemctl restart scam_hls@$1.service
-    return 1
-fi
-
-
-if [ "$deltatime" -gt 60 ]
-then
-    echo "$1 folder is too old: $deltatime seconds"
-	systemctl restart scam_hls@$1.service
-    return 2
-fi
-
-return 0
-
-}
-
-while true
+for name in $( systemctl --full --all --plain --no-legend list-units scam_hls* | sed 's/scam_hls@\(\S*\).service.*/\1/' )
 do
-	sleep 300
-    echo "Sanity Check of HLS folders"
-	run KitchenCam
-    run LivingRoomCam
+
+    echo $name
+
+    size=$( du /tmp/$1/ | gawk '{ print $1 }' )
+
+    modtime=$( stat -c %Y /tmp/$1 )
+    nowtime=$( date +%s )
+    deltatime=$(( $nowtime - $modtime ))
+
+
+    if [ "$size" -gt 10000 ]
+    then
+        echo "$1 folder is too big: $size"
+        systemctl restart scam_hls@$1.service
+    fi
+
+
+    if [ "$deltatime" -gt 60 ]
+    then
+        echo "$1 folder is too old: $deltatime seconds"
+        systemctl restart scam_hls@$1.service
+    fi
+
+
 done
+
 
