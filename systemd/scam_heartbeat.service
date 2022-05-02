@@ -2,9 +2,8 @@
 Description=Error Checker for the Cameras
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/opt/DogCamera/bin/stale_check.sh
-Restart=always
 
 [Install]
 WantedBy=multi-user.target

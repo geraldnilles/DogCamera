@@ -10,29 +10,28 @@
 for name in $( systemctl --full --all --plain --no-legend list-units scam_hls* | sed 's/scam_hls@\(\S*\).service.*/\1/' )
 do
 
-    echo $name
 
-    size=$( du /tmp/$1/ | gawk '{ print $1 }' )
+    size=$( du /tmp/$name/ | gawk '{ print $1 }' )
 
-    modtime=$( stat -c %Y /tmp/$1 )
+    modtime=$( stat -c %Y /tmp/$name )
     nowtime=$( date +%s )
     deltatime=$(( $nowtime - $modtime ))
 
 
+
     if [ "$size" -gt 10000 ]
     then
-        echo "$1 folder is too big: $size"
-        systemctl restart scam_hls@$1.service
+        echo "$name folder is too big: $size"
+        systemctl restart scam_hls@$name.service
     fi
 
 
     if [ "$deltatime" -gt 60 ]
     then
-        echo "$1 folder is too old: $deltatime seconds"
-        systemctl restart scam_hls@$1.service
+        echo "$name folder is too old: $deltatime seconds"
+        systemctl restart scam_hls@$name.service
     fi
 
 
 done
-
 
