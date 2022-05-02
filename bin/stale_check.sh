@@ -4,6 +4,9 @@
 # folder size is unusually large or the files have not been updated in several
 # minutes, the encode process will be restarted
 
+# TODO Dynamically detect how many HLS services are running
+#   systemctl --full --all --plain --no-legend list-units scam_hls*
+
 function run() {
 
 
@@ -17,6 +20,7 @@ deltatime=$(( $nowtime - $modtime ))
 if [ "$size" -gt 10000 ]
 then
     echo "$1 folder is too big: $size"
+	systemctl restart scam_hls@$1.service
     return 1
 fi
 
@@ -24,6 +28,7 @@ fi
 if [ "$deltatime" -gt 60 ]
 then
     echo "$1 folder is too old: $deltatime seconds"
+	systemctl restart scam_hls@$1.service
     return 2
 fi
 
@@ -31,18 +36,11 @@ return 0
 
 }
 
-function reset() {
-
-	echo "Reset!"
-	systemctl restart scam_hls.service
-	systemctl restart scam_hls2.service
-
-}
-
 while true
 do
 	sleep 300
     echo "Sanity Check of HLS folders"
-	run KitchenCam && run LivingRoomCam || reset
+	run KitchenCam
+    run LivingRoomCam
 done
 

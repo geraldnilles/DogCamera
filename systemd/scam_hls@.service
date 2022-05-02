@@ -1,13 +1,13 @@
 [Unit]
-Description=WebUI for DogCamera
+Description=HLS Encoder for %i
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/DogCamera
-ExecStart=/opt/DogCamera/app.js
+ExecStart=/opt/DogCamera/bin/camera.sh %i
 Restart=always
+RestartSec=30
 
 [Install]
 WantedBy=multi-user.target

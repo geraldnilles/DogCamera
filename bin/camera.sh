@@ -30,7 +30,4 @@ ffmpeg \
     -hls_segment_filename "out-%Y%m%d-%s.ts" \
     out.m3u8
 
-# If ffmpeg ever fails, wait 30s before you retry
-echo "ffmpeg stopped.  Waiting 30 seconds before attempting to restart"
-sleep 30
 
