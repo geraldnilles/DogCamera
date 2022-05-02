@@ -6,25 +6,24 @@
 
 function run() {
 
-echo "Checking the $1 folder"
 
 size=$( du /tmp/$1/ | gawk '{ print $1 }' )
-echo "Folder size: $size"
 
 modtime=$( stat -c %Y /tmp/$1 )
 nowtime=$( date +%s )
 deltatime=$(( $nowtime - $modtime ))
 
-echo "Last Modified $deltatime seconds ago"
 
 if [ "$size" -gt 10000 ]
 then
+    echo "$1 folder is too big: $size"
     return 1
 fi
 
 
 if [ "$deltatime" -gt 60 ]
 then
+    echo "$1 folder is too old: $deltatime seconds"
     return 2
 fi
 
@@ -43,6 +42,7 @@ function reset() {
 while true
 do
 	sleep 300
+    echo "Sanity Check of HLS folders"
 	run KitchenCam && run LivingRoomCam || reset
 done
 
