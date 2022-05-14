@@ -2,6 +2,7 @@
 Description=HLS Encoder for %i
 After=network-online.target
 Wants=network-online.target
+Requires=scam_heartbeat.timer
 
 [Service]
 Type=simple

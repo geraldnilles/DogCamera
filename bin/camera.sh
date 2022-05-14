@@ -19,7 +19,6 @@ cd $DIRECTORY
 ffmpeg \
     -y \
     -loglevel error \
-    -timeout 10000000 \
     -i rtsp://$1.lan:8554/unicast \
     -c:v copy \
     -f hls \
