@@ -3,8 +3,8 @@ Description=WebUI for DogCamera
 After=network-online.target
 Wants=network-online.target
 # Overwrite these Cameras you want to start
-After=scam_hls@LivingRoomCam.service
-After=scam_hls@KitchenCam.service
+Wants=scam_hls@LivingRoomCam.service
+Wants=scam_hls@KitchenCam.service
 
 [Service]
 Type=simple
